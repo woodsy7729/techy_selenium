@@ -1,8 +1,5 @@
-package tests;
+package com.example.tests;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
@@ -12,43 +9,24 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-
-public class LoginTest {
+public class AssertLogin {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-  private String path = "src\\ebayCredentials";
 
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "https://ebay.com.au/";
+    baseUrl = "https://www.ebay.com.au/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void testLogin() throws Exception {
-    driver.get(baseUrl);
-    FileInputStream fis = new FileInputStream(path);
-    BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-    String usernameunformat = in.readLine();
-    System.out.println(usernameunformat);
-    String passwordunformat = in.readLine();
-    String password = passwordunformat.split("=")[1];
-    System.out.println(password);
-    driver.findElement(By.linkText("Sign in")).click();
-    driver.findElement(By.id("userid")).clear();
-    driver.findElement(By.id("userid")).sendKeys("stayhydratedteam2@gmail.com");
-    driver.findElement(By.id("pass")).clear();
-    driver.findElement(By.id("pass")).sendKeys(password);
-    driver.findElement(By.id("sgnBt")).click();
+  public void testAssertLogin() throws Exception {
+    driver.get(baseUrl + "/");
+    assertFalse(isElementPresent(By.linkText("Sign in")));
   }
-
-  /*
-  https://signin.ebay.com.au/ws/eBayISAPI.dll?SignOutConfirm&ru=&i=.83990007900015
-
-   */
 
   @After
   public void tearDown() throws Exception {
