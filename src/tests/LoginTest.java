@@ -33,13 +33,12 @@ public class LoginTest {
     FileInputStream fis = new FileInputStream(path);
     BufferedReader in = new BufferedReader(new InputStreamReader(fis));
     String usernameunformat = in.readLine();
-    System.out.println(usernameunformat);
     String passwordunformat = in.readLine();
     String password = passwordunformat.split("=")[1];
-    System.out.println(password);
+    String username = usernameunformat.split("=")[1];
     driver.findElement(By.linkText("Sign in")).click();
     driver.findElement(By.id("userid")).clear();
-    driver.findElement(By.id("userid")).sendKeys("stayhydratedteam2@gmail.com");
+    driver.findElement(By.id("userid")).sendKeys(username);
     driver.findElement(By.id("pass")).clear();
     driver.findElement(By.id("pass")).sendKeys(password);
     driver.findElement(By.id("sgnBt")).click();
