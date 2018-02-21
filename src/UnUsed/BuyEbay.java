@@ -1,4 +1,4 @@
-package tests;
+package UnUsed;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class PopupSignnout {
+public class BuyEbay {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,9 +23,14 @@ public class PopupSignnout {
   }
 
   @Test
-  public void testPopupSignnout() throws Exception {
-    driver.findElement(By.id("gh-ug")).click();
-    driver.findElement(By.linkText("Sign out")).click();
+  public void testBuyEbay() throws Exception {
+    driver.get(baseUrl + "/");
+    driver.findElement(By.id("gh-ac")).click();
+    driver.findElement(By.id("gh-ac")).clear();
+    driver.findElement(By.id("gh-ac")).sendKeys("Granny Smith Apple");
+    driver.findElement(By.id("gh-btn")).click();
+    driver.findElement(By.xpath("//li/h3/a")).click();
+    driver.findElement(By.linkText("Buy It Now")).click();
   }
 
   @After

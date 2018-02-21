@@ -1,4 +1,4 @@
-package tests;
+package UnUsed;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class BuyEbay {
+public class AssertLogin {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,14 +23,9 @@ public class BuyEbay {
   }
 
   @Test
-  public void testBuyEbay() throws Exception {
+  public void testAssertLogin() throws Exception {
     driver.get(baseUrl + "/");
-    driver.findElement(By.id("gh-ac")).click();
-    driver.findElement(By.id("gh-ac")).clear();
-    driver.findElement(By.id("gh-ac")).sendKeys("Granny Smith Apple");
-    driver.findElement(By.id("gh-btn")).click();
-    driver.findElement(By.xpath("//li/h3/a")).click();
-    driver.findElement(By.linkText("Buy It Now")).click();
+    assertFalse(isElementPresent(By.linkText("Sign in")));
   }
 
   @After

@@ -188,7 +188,7 @@ public class MainTest {
         driver.get("https://www.ebay.com.au/");
         testLogin("config/User1");
         //Add config file
-        String path = "src\\config\\Items";
+        String path = "src\\config\\IndivItem";
         String item;
         FileInputStream fis = new FileInputStream(path);
         BufferedReader in = new BufferedReader(new InputStreamReader(fis));
@@ -197,8 +197,7 @@ public class MainTest {
             driver.findElement(By.id("gh-ac")).clear();
             driver.findElement(By.id("gh-ac")).sendKeys(item);
             driver.findElement(By.id("gh-btn")).click();
-            driver.findElement(By.xpath("//li/h3")).click();
-            System.out.println("here");
+            driver.findElement(By.xpath("//li/h3")).click(); //change?
             //driver.findElement(By.linkText("Buy It Now")).click();
             //driver.findElement(By.cssSelector("#binBtn_btn")).click();
             driver.findElement(By.id("binBtn_btn")).click();
@@ -228,9 +227,10 @@ public class MainTest {
                 driver.findElement(By.xpath("//input[@type='text' or @type='search']")).sendKeys(itemline);
                 driver.findElement(By.xpath("//input[@type='text' or @type='search']")).sendKeys(Keys.RETURN);
                 TimeUnit.SECONDS.sleep(3);
-                if (distline == "https://www.ebay.com.au/"){
+                //add click on first link if time
+                //if (distline == "https://www.ebay.com.au/"){
 
-                }
+                //}
             }
 
         }

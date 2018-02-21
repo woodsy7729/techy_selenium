@@ -1,4 +1,4 @@
-package tests;
+package UnUsed;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class AssertLogin {
+public class PopupSignnout {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,9 +23,9 @@ public class AssertLogin {
   }
 
   @Test
-  public void testAssertLogin() throws Exception {
-    driver.get(baseUrl + "/");
-    assertFalse(isElementPresent(By.linkText("Sign in")));
+  public void testPopupSignnout() throws Exception {
+    driver.findElement(By.id("gh-ug")).click();
+    driver.findElement(By.linkText("Sign out")).click();
   }
 
   @After
