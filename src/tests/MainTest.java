@@ -149,7 +149,7 @@ public class MainTest {
         while ((line = in.readLine()) != null) {
             // process the line.
             driver.get(line);
-            TimeUnit.SECONDS.sleep(7);
+            TimeUnit.SECONDS.sleep(4);
         }
 
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -188,7 +188,7 @@ public class MainTest {
         driver.get("https://www.ebay.com.au/");
         testLogin("config/User1");
         //Add config file
-        String path = "src\\config\\IndivItem";
+        String path = "src\\config\\Items";
         String item;
         FileInputStream fis = new FileInputStream(path);
         BufferedReader in = new BufferedReader(new InputStreamReader(fis));

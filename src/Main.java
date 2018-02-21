@@ -5,13 +5,15 @@ public class Main {
         MainTest mainTest = new MainTest();
         mainTest.setUp();
         //mainTest.testGetAllURL("funExamples");
-        //mainTest.testGetFirstURL("CrowdInput"); //7 secnds make shorter
-        //mainTest.testLogin("config/User2");
-       // mainTest.testEditAddressSlowed();
-        //mainTest.testEditAddressRealtime(); //talk about how we can change passwords/other use details
-         //add to cart from config
-        //mainTest.SearchGeneric("Distributors", "Items"); //we can change items if we want? - get user input //can be expanded if time
-        mainTest.testEbayAddtocart(); //- PAyment details so we cant add to card atm, so we just doing it indiv purchases
+        //mainTest.testGetFirstURL("CrowdInput");
+        //mainTest.testLogin("config/User1"); //DO USER2 as well
+
+        // EDIT CONFIG FILE
+
+
+        //mainTest.testEditAddressRealtime();
+        //mainTest.SearchGeneric("Distributors", "Items");
+       // mainTest.testEbayAddtocart();
         mainTest.quit();
     }
 }
