@@ -1,6 +1,5 @@
 package tests;
 
-import java.io.*;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
@@ -9,38 +8,40 @@ import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.Keys;
 
-
-public class LogoutTest {
+public class GenericDistoSearch{
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
-    private String path = "src\\ebayCredentials";
 
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "https://ebay.com.au/";
+        baseUrl = "https://www.gumtree.com.au/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     @Test
-    public void checkLoggedIn (){
-        //see if there is the logged in/ register button
-        driver.get(baseUrl);
-        try {
-            assertTrue(isElementPresent(By.linkText("Sign in")));
-            System.out.println("Sign in is present, so we are not logged in");
-            driver.quit();
-        } catch (Exception e) {
-            System.err.println("Logged in: " + e.getMessage());
-            System.out.println("Sign in is not present, so we are logged in");
-            driver.findElement(By.id("gh-ug")).click();
-            driver.findElement(By.linkText("Sign out")).click();
-        }
+    public void SearchGeneric() throws Exception {
+        baseUrl = "https://www.gumtree.com.au/";
+        driver.get(baseUrl + "/");
+        WebElement iframe = driver.findElement(By.xpath("//input[@type='text' or @type='search']"));
+        driver.findElement(By.xpath("//input[@type='text' or @type='search']")).clear();
+        driver.findElement(By.xpath("//input[@type='text' or @type='search']")).sendKeys("apple");
+        driver.findElement(By.xpath("//input[@type='text' or @type='search']")).sendKeys(Keys.RETURN);
     }
 
+
+    @After
+    public void tearDown() throws Exception {
+        //driver.quit();
+        String verificationErrorString = verificationErrors.toString();
+        if (!"".equals(verificationErrorString)) {
+            fail(verificationErrorString);
+        }
+    }
 
     private boolean isElementPresent(By by) {
         try {

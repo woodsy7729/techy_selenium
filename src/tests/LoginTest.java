@@ -25,31 +25,53 @@ public class LoginTest {
     driver = new FirefoxDriver();
     baseUrl = "https://ebay.com.au/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
   }
 
   @Test
   public void testLogin() throws Exception {
-    driver.get(baseUrl);
-    FileInputStream fis = new FileInputStream(path);
-    BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-    String usernameunformat = in.readLine();
-    String passwordunformat = in.readLine();
-    String password = passwordunformat.split("=")[1];
-    String username = usernameunformat.split("=")[1];
-    driver.findElement(By.linkText("Sign in")).click();
-    driver.findElement(By.id("userid")).clear();
-    driver.findElement(By.id("userid")).sendKeys(username);
-    driver.findElement(By.id("pass")).clear();
-    driver.findElement(By.id("pass")).sendKeys(password);
-    driver.findElement(By.id("sgnBt")).click();
+      driver.get(baseUrl);
+      FileInputStream fis = new FileInputStream(path);
+      BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+      String usernameunformat = in.readLine();
+      String passwordunformat = in.readLine();
+      String password = passwordunformat.split("=")[1];
+      String username = usernameunformat.split("=")[1];
+      driver.findElement(By.linkText("Sign in")).click();
+      driver.findElement(By.id("userid")).clear();
+      driver.findElement(By.id("userid")).sendKeys(username);
+      driver.findElement(By.id("pass")).clear();
+      driver.findElement(By.id("pass")).sendKeys(password);
+      driver.findElement(By.id("sgnBt")).click();
+
   }
-
+  public void testLogout() throws Exception{
+      driver.findElement(By.id("gh-ug")).click();
+      driver.findElement(By.linkText("Sign out")).click();
+  }
+  public void isSignedIn() throws Exception{
+      boolean signedin = isElementPresent(By.linkText("Sign in"));
+      if (signedin == true)
+        testLogout();
+      else
+          driver.quit();
+  }
   /*
-  https://signin.ebay.com.au/ws/eBayISAPI.dll?SignOutConfirm&ru=&i=.83990007900015
-
-   */
-
-  @After
+  @Test
+  public void testLogout() throws Exception{
+      driver.get(baseUrl);
+      try {
+          assertTrue(isElementPresent(By.linkText("Sign in")));
+          System.out.println("Sign in is present, so we are not logged in");
+          driver.quit();
+      } catch (Exception e) {
+          System.err.println("Logged in: " + e.getMessage());
+          System.out.println("Sign in is not present, so we are logged in");
+          driver.findElement(By.id("gh-ug")).click();
+          driver.findElement(By.linkText("Sign out")).click();
+      }
+  }
+*/
   public void tearDown() throws Exception {
     driver.quit();
     String verificationErrorString = verificationErrors.toString();

@@ -1,6 +1,8 @@
 package tests;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
@@ -11,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 
-public class LogoutTest {
+public class AmazonLogin {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -21,13 +23,42 @@ public class LogoutTest {
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "https://ebay.com.au/";
+        baseUrl = "https://www.woolworths.com.au/shop/securelogin";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     @Test
-    public void checkLoggedIn (){
-        //see if there is the logged in/ register button
+    public void testLogin() throws Exception {
+        driver.get(baseUrl);
+        FileInputStream fis = new FileInputStream(path);
+        BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+        String usernameunformat = in.readLine();
+        String passwordunformat = in.readLine();
+        String password = passwordunformat.split("=")[1];
+        String username = usernameunformat.split("=")[1];
+        driver.findElement(By.linkText("Sign in")).click();
+        driver.findElement(By.id("userid")).clear();
+        driver.findElement(By.id("userid")).sendKeys(username);
+        driver.findElement(By.id("pass")).clear();
+        driver.findElement(By.id("pass")).sendKeys(password);
+        driver.findElement(By.id("sgnBt")).click();
+        testLogout();
+
+    }
+    public void testLogout() throws Exception{
+        driver.findElement(By.id("gh-ug")).click();
+        driver.findElement(By.linkText("Sign out")).click();
+    }
+    public void isSignedIn() throws Exception{
+        boolean signedin = isElementPresent(By.linkText("Sign in"));
+        if (signedin == true)
+            testLogout();
+        else
+            driver.quit();
+    }
+    /*
+    @Test
+    public void testLogout() throws Exception{
         driver.get(baseUrl);
         try {
             assertTrue(isElementPresent(By.linkText("Sign in")));
@@ -40,7 +71,14 @@ public class LogoutTest {
             driver.findElement(By.linkText("Sign out")).click();
         }
     }
-
+  */
+    public void tearDown() throws Exception {
+        driver.quit();
+        String verificationErrorString = verificationErrors.toString();
+        if (!"".equals(verificationErrorString)) {
+            fail(verificationErrorString);
+        }
+    }
 
     private boolean isElementPresent(By by) {
         try {

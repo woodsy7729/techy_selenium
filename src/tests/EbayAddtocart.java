@@ -1,6 +1,5 @@
 package tests;
 
-import java.io.*;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
@@ -10,37 +9,38 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-
-public class LogoutTest {
+public class EbayAddtocart {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
-    private String path = "src\\ebayCredentials";
 
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "https://ebay.com.au/";
+        baseUrl = "https://www.ebay.com.au/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     @Test
-    public void checkLoggedIn (){
-        //see if there is the logged in/ register button
-        driver.get(baseUrl);
-        try {
-            assertTrue(isElementPresent(By.linkText("Sign in")));
-            System.out.println("Sign in is present, so we are not logged in");
-            driver.quit();
-        } catch (Exception e) {
-            System.err.println("Logged in: " + e.getMessage());
-            System.out.println("Sign in is not present, so we are logged in");
-            driver.findElement(By.id("gh-ug")).click();
-            driver.findElement(By.linkText("Sign out")).click();
-        }
+    public void testEbayAddtocart() throws Exception {
+        driver.get(baseUrl + "/");
+        driver.findElement(By.id("gh-ac")).click();
+        driver.findElement(By.id("gh-ac")).clear();
+        driver.findElement(By.id("gh-ac")).sendKeys("porcelain glass cup");
+        driver.findElement(By.id("gh-btn")).click();
+        driver.findElement(By.linkText("12pc Set Maxwell & Williams White Basics Latte Cup 200ML/Porcelain/Glass/Coffee")).click();
+        driver.findElement(By.id("binBtn_btn")).click();
     }
 
+    @After
+    public void tearDown() throws Exception {
+        driver.quit();
+        String verificationErrorString = verificationErrors.toString();
+        if (!"".equals(verificationErrorString)) {
+            fail(verificationErrorString);
+        }
+    }
 
     private boolean isElementPresent(By by) {
         try {
@@ -75,3 +75,4 @@ public class LogoutTest {
         }
     }
 }
+
