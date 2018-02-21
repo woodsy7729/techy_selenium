@@ -1,12 +1,14 @@
 package tests;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -35,6 +37,22 @@ public class MainTest {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         //testEditAddress();
     }
+
+    public void screenshotTest(String status) throws IOException {
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        String basepath= "C:\\Users\\woods\\IdeaProjects\\hello_world\\src\\Logs\\";
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date();
+        String name= dateFormat.format(date);
+        String img = ".png";
+        String fullpath = basepath+ status+"_"+name+img;
+        System.out.println(fullpath);
+// Now you can do whatever you need to do with it, for example copy somewhere
+        FileUtils.copyFile(scrFile, new File(fullpath));
+        driver.quit();
+    }
+
+
     public void testEditAddressRealtime() throws Exception {
         FileInputStream fis = new FileInputStream(addresspath);
         BufferedReader in = new BufferedReader(new InputStreamReader(fis));
@@ -73,7 +91,10 @@ public class MainTest {
         driver.findElement(By.id("s0-zipCode-field-zipCode-field")).sendKeys(postcode);
         driver.findElement(By.id("s0-phone-field-phone-field")).clear();
         driver.findElement(By.id("s0-phone-field-phone-field")).sendKeys(phonenumber);
+        TimeUnit.SECONDS.sleep(2);
+        screenshotTest("EditDetails");
         driver.findElement(By.id("s0-savebutton")).click();
+
     }
 
     public void testEditAddressSlowed() throws Exception {
@@ -197,10 +218,11 @@ public class MainTest {
             driver.findElement(By.id("gh-ac")).clear();
             driver.findElement(By.id("gh-ac")).sendKeys(item);
             driver.findElement(By.id("gh-btn")).click();
-            driver.findElement(By.xpath("//li/h3")).click(); //change?
+            driver.findElement(By.xpath("//li/h3/a")).click(); //change?
             //driver.findElement(By.linkText("Buy It Now")).click();
             //driver.findElement(By.cssSelector("#binBtn_btn")).click();
-            driver.findElement(By.id("binBtn_btn")).click();
+            //driver.findElement(By.id("binBtn_btn")).click();
+            screenshotTest("Purchase");
             //driver.findElement(By.id("")).click();
             driver.get("https://www.ebay.com.au/");
         }

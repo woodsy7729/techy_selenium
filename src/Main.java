@@ -11,7 +11,7 @@ public class Main {
         // EDIT CONFIG FILE
 
 
-        //mainTest.testEditAddressRealtime();
+        mainTest.testEditAddressRealtime();
         //mainTest.SearchGeneric("Distributors", "Items");
        // mainTest.testEbayAddtocart();
         mainTest.quit();
