@@ -1,7 +1,7 @@
-fullname=James Woods
-address1=17a Jemima Street
-address2=Level 1000
-city=Bankstown
+fullname=James Shaw
+address1=17a Flubabdub Street
+address2=Level 1
+city=Jamestown
 state=New South Wales
 postcode=2075
 phonenumber=0426979052

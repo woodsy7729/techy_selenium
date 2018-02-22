@@ -40,16 +40,16 @@ public class MainTest {
 
     public void screenshotTest(String status) throws IOException {
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        String basepath= "C:\\Users\\woods\\IdeaProjects\\hello_world\\src\\Logs\\";
+        String basepath= "src\\Logs\\";
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
         String name= dateFormat.format(date);
         String img = ".png";
         String fullpath = basepath+ status+"_"+name+img;
-        System.out.println(fullpath);
+        //System.out.println(fullpath);
 // Now you can do whatever you need to do with it, for example copy somewhere
         FileUtils.copyFile(scrFile, new File(fullpath));
-        driver.quit();
+        //driver.quit();
     }
 
 
@@ -221,7 +221,7 @@ public class MainTest {
             driver.findElement(By.xpath("//li/h3/a")).click(); //change?
             //driver.findElement(By.linkText("Buy It Now")).click();
             //driver.findElement(By.cssSelector("#binBtn_btn")).click();
-            //driver.findElement(By.id("binBtn_btn")).click();
+            driver.findElement(By.id("binBtn_btn")).click();
             screenshotTest("Purchase");
             //driver.findElement(By.id("")).click();
             driver.get("https://www.ebay.com.au/");
